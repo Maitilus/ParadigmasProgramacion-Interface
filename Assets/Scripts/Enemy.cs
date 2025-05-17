@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IInteraction
+public class Enemy : MonoBehaviour, IInteraction, ITakeDamage
 {
     [SerializeField] private ScriptableEnemy EnemyData;
     
@@ -18,5 +18,14 @@ public class Enemy : MonoBehaviour, IInteraction
     public void Interact()
     {
         EnemyData.PrintData();
+
+        Debug.Log($"Current Health: {Health}");
+    }
+
+    public void ReduceHealth(float IncomingDamage)
+    {
+        Health -= IncomingDamage;
+
+        if (Health <= 0) { Destroy(gameObject); }
     }
 }

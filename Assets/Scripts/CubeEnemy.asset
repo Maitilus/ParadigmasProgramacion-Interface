@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13fe226e134c65a31886058f221a432d, type: 3}
   m_Name: CubeEnemy
   m_EditorClassIdentifier: 
-  EnemyName: 
-  Damage: 0
-  Health: 0
+  EnemyName: Cube
+  Damage: 12
+  Health: 150

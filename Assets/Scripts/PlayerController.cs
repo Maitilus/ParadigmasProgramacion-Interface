@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private bool canMove = true;
 
     [SerializeField] private float InteractionDistance;
+    public float Damage;
 
     #endregion
 
@@ -99,6 +100,11 @@ public class PlayerMovement : MonoBehaviour
         {
             InteractWithObject();
         }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            DealDamage();
+        }
     }
 
     private void InteractWithObject()
@@ -109,10 +115,18 @@ public class PlayerMovement : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, InteractionDistance))
         {
-            if (hit.collider.GetComponent<IInteraction>() != null)
-            {
-                hit.collider.GetComponent<IInteraction>().Interact();
-            }
+            hit.collider.GetComponent<IInteraction>()?.Interact();
+        }
+    }
+
+    private void DealDamage()
+    {
+        Ray ray = new(playerCamera.transform.position, playerCamera.transform.forward);
+        Debug.DrawRay(ray.origin,ray.direction * InteractionDistance);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, InteractionDistance))
+        {
+            hit.collider.GetComponent<ITakeDamage>()?.ReduceHealth(Damage);
         }
     }
 }
